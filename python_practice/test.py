@@ -2,21 +2,39 @@
 import contextlib
 import datetime
 import time
+from urllib.parse import unquote
+from itertools import zip_longest
 
-a = datetime.datetime.fromtimestamp(9999999999.0)
-print(a)
+# 测试用脚本
 
-a_list = [1, 2, 3]
-b_list = a_list[:]  # 完整复制一份
-assert a_list == b_list and a_list is not b_list
+print(unquote("http://52.83.208.161:8001/api/v1/event_stats?date_stop=20210207&event_name=%5B%5B%22__active%22%5D%5D&date_start=20201209&from_cache=True&timeout=30&result_id=audience-7etjhsc3d"))
 
 
-class A(object):
-    def __init__(self):
-        self.__data = "good"  # private
-        self._age = 10  # protected
+class Father(object):
 
-a = A()
-# a.__data   # 报错
-print(a._A__data) # 可以正常获取
-print(a._age)
+    color = "red"
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def scold(self):
+        print("$%#^&$#@$!$@")
+
+
+class Son(Father):
+
+    def __init__(self, height, name, age):
+        self.height = height
+        super(Son, self).__init__(name, age)
+
+    def cry(self):
+        print("哇哇哇哇")
+
+
+a = {"a": 1, "b": 2, "c": 3, "d": 4}
+for k , v in a.items():
+    if k == "b":
+        a.pop(k)
+    else:
+        print(k)
