@@ -14,11 +14,11 @@ print(url)
 
 class A(object):
 
-    def __init__(self):
-        self.a = 10
-        self.b = 20
+    def __str__(self):
+        return "aaaaaaa"
 
 
-a = A()
-print(hasattr(a, "c"))
+b = {"d": A(), "c": A()}
+print(A())
+print(b)
 
