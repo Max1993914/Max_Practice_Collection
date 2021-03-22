@@ -12,13 +12,6 @@ url = unquote("http://test-ap-dataservice.appcloudbox.net:8081/api/v2/case_segme
 print(url)
 
 
-class A(object):
-
-    def __str__(self):
-        return "aaaaaaa"
-
-
-b = {"d": A(), "c": A()}
-print(A())
-print(b)
-
+a = 1
+print(a << 1)
+print(a << 2)
