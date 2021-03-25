@@ -12,6 +12,17 @@ url = unquote("http://test-ap-dataservice.appcloudbox.net:8081/api/v2/case_segme
 print(url)
 
 
-a = 1
-print(a << 1)
-print(a << 2)
+a = "    ddddeee    "
+print(a)
+b = a.lstrip()
+print(b)
+c = a.strip()
+print(c)
+
+def myAtoi():
+    pattern = re.compile(r'^[\+\-]?\d+')
+    result = pattern.match("102")
+    print(int(result.group()))
+
+myAtoi()
+
