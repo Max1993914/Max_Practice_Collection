@@ -8,8 +8,12 @@ from urllib.parse import unquote
 from itertools import zip_longest
 import re
 
-url = unquote("http://test-ap-dataservice.appcloudbox.net:8081/api/v2/case_segment_analysis?report_id=6&metric=ltv_7&dimensions=['device_brand']")
+url = unquote("http://ap-dataservice.appcloudbox.net:8001/api/v1/event_stats?date_start=20201201&date_stop=20210203&timeout=30&result_id=case-7qpstr7d4n&event_name=topic-7f3fv60rv%26play_click&from_cache=True")
 print(url)
+
+d_date = datetime.datetime(2021, 1, 3)
+d_date = d_date + datetime.timedelta(days=2)
+print(d_date)
 
 
 a = "    ddddeee    "
@@ -25,4 +29,8 @@ def myAtoi():
     print(int(result.group()))
 
 myAtoi()
+
+
+ddd = dict()
+print(list(ddd.keys()))
 

@@ -22,7 +22,7 @@ def reverse(num):
             return 0
         a_num = a_num // 10
 
-    return result if num >0 else -result
+    return result if num > 0 else -result
 
 a = 321
 
