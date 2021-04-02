@@ -23,12 +23,18 @@ print(b)
 c = a.strip()
 print(c)
 
-def myAtoi():
-    pattern = re.compile(r'^[\+\-]?\d+')
-    result = pattern.match("102")
-    print(int(result.group()))
 
-myAtoi()
+def strStr(haystack: str, needle: str) -> int:
+    n_length = len(needle)
+    for i, char in enumerate(haystack):
+        print(haystack[i:i + n_length])
+        print(needle)
+        if haystack[i:i + n_length] == needle:
+            return i
+    return -1
+
+
+print(strStr("", ""))
 
 
 ddd = dict()
