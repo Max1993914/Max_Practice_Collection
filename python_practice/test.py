@@ -24,19 +24,35 @@ c = a.strip()
 print(c)
 
 
-def strStr(haystack: str, needle: str) -> int:
-    n_length = len(needle)
-    for i, char in enumerate(haystack):
-        print(haystack[i:i + n_length])
-        print(needle)
-        if haystack[i:i + n_length] == needle:
-            return i
-    return -1
+def combinationSum(candidates, target):
+
+    t = target
+    def dfs(begin):
+        if t <= 0:
+            if t == 0:
+                all_result.append(result)
+            return
+        for i in range(begin, length):
+            t -= candidates[begin]
+            result.append(candidates[begin])
+            dfs(begin, target)
+            result.pop()
+            target += candidates[begin]
+
+    length = len(candidates)
+    all_result = []
+    result = []
+    dfs(0)
+    return all_result
 
 
-print(strStr("", ""))
+def a(bbb, ccc):
 
+    def close(good):
+        if bbb <= 20:
+            print("d")
+        if ccc >= 50:
+            print("29")
 
-ddd = dict()
-print(list(ddd.keys()))
+    close(20)
 
