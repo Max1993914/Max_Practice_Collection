@@ -11,7 +11,7 @@
                    左:"("               （剪）右:")"
                /             \
           左:"(("              右:"()"
-          /     \               /     \
+          /     \              /     \
     (剪)左:"((("  右"(()"  左："()("   (剪)右:"())"
                    \              \
                     右"(())"         右"()()"
@@ -20,5 +20,35 @@
 空间复杂度：
 """
 
-a = [1, 2, 3]
-print(a.index(3))
+
+def generate_parenthesis(n):
+    length = n * 2
+    all_results = []
+    result = ""
+    left = 0
+    right = 0
+
+    def back_trace(index):
+        nonlocal left
+        nonlocal right
+        nonlocal result
+        if left > n or right > left:
+            return
+        if index >= length:
+            all_results.append(result)
+            return
+
+        result += "("
+        left += 1
+        back_trace(index + 1)
+        result = result[:-1]
+        left -= 1
+        result += ")"
+        right += 1
+        back_trace(index + 1)
+        result = result[:-1]
+        right -= 1
+
+    back_trace(0)
+
+    return all_results

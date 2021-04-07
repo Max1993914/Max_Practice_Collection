@@ -6,13 +6,13 @@
 1. 先排序
 2. 去重复：
     如果nums[i]>0，立即停止遍历并返回，因为排过序了，求和一定大于0了。
-    如果nums[i] == nums[i-1]，则跳过这次遍历，因为nums[i]情况下所取的left和right是nums[i-1]的子集。
+    如果i>0 且 nums[i] == nums[i-1]，则跳过这次遍历，因为nums[i]情况下所取的left和right是nums[i-1]的子集。
 3. 索引i遍历数组，每次遍历时维持两个左右索引left和right，left=i+1，right=n-1。
     当nums[i]+nums[left]+nums[right] = 0时记录下来。然后分别判断left和right是否和其下一个数重复，如果重复则跳过。
 4. 如果nums[i]+nums[left]+nums[right] >0，说明right太大，right -=1
 5. 如果nums[i]+nums[left]+nums[right] <0，说明left太小，left +=1
 时间复杂度：O(n**2)
-空间复杂度：O(n),实际情况下可能不允许原数组，所以需要对排序生成的nums副本进行额外的空间分配。
+空间复杂度：O(n),实际情况下可能不允许原数组改动，所以需要对排序生成的nums副本进行额外的空间分配。
 """
 
 
