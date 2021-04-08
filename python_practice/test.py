@@ -56,3 +56,8 @@ def a(bbb, ccc):
 
     close(20)
 
+
+
+a = "dsafevcv"
+b = a[:-1]
+print(b)

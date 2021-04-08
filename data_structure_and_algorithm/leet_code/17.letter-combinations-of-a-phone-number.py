@@ -23,8 +23,8 @@
 def get_all_combine(digits):
     if not digits:
         return []
+    all_results = []
     result = []
-    combine = []
     length = len(digits)
 
     phone_map = {
@@ -40,16 +40,16 @@ def get_all_combine(digits):
 
     def back_tracking(index):
         if index >= length:
-            result.append("".join(combine))
+            all_results.append("".join(result))
             return
         alpha_str = phone_map[digits[index]]
         for char in alpha_str:
-            combine.append(char)
+            result.append(char)
             back_tracking(index+1)
-            combine.pop(-1)
+            result.pop(-1)
 
     back_tracking(0)
-    return result
+    return all_results
 
 
 digits = "23"
