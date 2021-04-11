@@ -28,6 +28,8 @@ def insert_sort(unsorted):
                 break
         unsorted[insert_pos] = insert_value
         print(unsorted)
+    return unsorted
+
 
 u = insert_sort(u)
 

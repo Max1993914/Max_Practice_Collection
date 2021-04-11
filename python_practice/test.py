@@ -30,4 +30,6 @@ def uniquePaths(m: int, n: int) -> int:
     return result_sum
 
 
-print(uniquePaths(3, 3))
+a = 4  # 100
+b = 2  # 010
+print(a ^ b)

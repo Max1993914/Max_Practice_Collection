@@ -39,7 +39,7 @@ def merge(unsorted, start_index, end_index, mid_index):
             j += 1
 
     if i <= mid_index:
-        temp.extend(unsorted[i:mid_index+1])
+        temp.extend(unsorted[i:mid_index + 1])
     if j <= end_index:
         temp.extend(unsorted[j:end_index + 1])
 
