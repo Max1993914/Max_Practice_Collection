@@ -12,24 +12,66 @@ url = unquote("http://ap-dataservice.appcloudbox.net:8001/api/v1/event_stats?dat
 print(url)
 
 
-def uniquePaths(m: int, n: int) -> int:
-    result_sum = 0
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-    def back_trace(index_m, index_n):
-        nonlocal result_sum
-        if index_m == m - 1 and index_n == n - 1:
-            result_sum += 1
+
+def mirror_tree(root):
+
+    def recur(left, right):
+        if not left and not right:
             return
-        elif index_m > m - 1 or index_n > n - 1:
-            return
+        left, right = right, left
+        if left:
+            recur(left.left, left.right)
+        if right:
+            recur(right.left, right.right)
 
-        back_trace(index_m + 1, index_n)
-        back_trace(index_m, index_n + 1)
-
-    back_trace(0, 0)
-    return result_sum
+    recur(root.left, root.right)
+    return root
 
 
-a = 4  # 100
-b = 2  # 010
-print(a ^ b)
+a = TreeNode(10)
+a.left = TreeNode(2)
+a.right = TreeNode(8)
+
+
+def test(left, right):
+    print(id(left))
+    print(id(right))
+    left, right = right, left
+    print(left == a.left)
+    print(id(left))
+    print(id(right))
+
+
+test(a.left, a.right)
+print(id(a), id(a.left), id(a.right))
+
+
+class T(object):
+
+    def __init__(self):
+        self.left = None
+        self.right = None
+        self.value = [10, 20]
+
+b = T()
+b.left = T()
+b.right = T()
+
+print("dsfakljfdlksfkal")
+
+def test2(left, right):
+    print(id(left), id(right))
+    left.value = [200, 400]
+    temp = left
+    right = left
+    left = temp
+
+test2(b.left, b.right)
+print(b.left.value)
+
