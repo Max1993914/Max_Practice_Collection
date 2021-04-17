@@ -18,8 +18,10 @@
 
 为什么end=end-1可以缩小范围？
 假设旋转点位置为x
-如果x < end， 那么end = end-1自然安全
+如果x < end， 那么end = end-1 自然安全
 如果x = end:
+    *** (最直接的理解)那么相当于最后一个值是旋转点，旋转点是最小的，而正常顺序现在应该是x, 0, 1 ... m。所以nums[start]一定等于nums[mid]等于nums[x]
+
     1. 此时nums[m] = nums[x] = nums[end], 由于x是旋转点，nums[m] <= nums[i]
     2. 因为m是向下取整，所以i < end, 所以i < x, 所以m必然在左侧数组中，所以nums[m] >= nums[i]。
 因此！nums[m] = nums[i]，并且nums[i] ... nums[m] 都等于 nums[x]。虽然end = end - 1 丢失了旋转点，
