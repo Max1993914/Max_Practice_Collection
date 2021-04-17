@@ -1,155 +1,228 @@
 def bubble_sort(nums):
+
     for i in range(len(nums)-1):
-        is_bubble = False
+        need_next = False
         for j in range(len(nums)-i-1):
             if nums[j] > nums[j+1]:
                 nums[j], nums[j+1] = nums[j+1], nums[j]
-                is_bubble = True
-        if not is_bubble:
+                need_next = True
+        if not need_next:
             break
+
     return nums
 
 
-a = [2, 4, 1, 6, 10, 7, 5]
-print(bubble_sort(a))
-# 时间复杂度：最坏o(n**2)， 最好o(n), 平均o(n**2)
-# 空间复杂度o(1)
-# 稳定
+nums = [1, 5, 10, 2, 6, 7, 4, 3]
+print(bubble_sort(nums))
 
 
 def insert_sort(nums):
-    for i in range(1, len(nums)):
+
+    for i in range(len(nums)):
+        if i == 0: continue
+
         temp = nums[i]
-        insert_pos = 0
+        index = 0
         for j in range(i-1, -1, -1):
             if nums[j] > temp:
                 nums[j+1] = nums[j]
             else:
-                insert_pos = j+1
+                index = j + 1
                 break
-        nums[insert_pos] = temp
+        nums[index] = temp
     return nums
 
 
-b = [3, 4, 1, 6, 2, 10, 7, 5]
-print(insert_sort(b))
-# 时间复杂度：最好on，最坏on**2，平均on**2
-# 稳定
-# 原地排序
+nums = [15, 5, 10, 2, 6, 7, 4, 3, 8]
+print(insert_sort(nums))
 
 
 def selection_sort(nums):
 
     for i in range(len(nums)-1):
-        min_num = nums[i]
+        min_value = nums[i]
         min_index = i
         for j in range(i, len(nums)):
-            if nums[j] < min_num:
-                min_num = nums[j]
+            if nums[j] < min_value:
+                min_value = nums[j]
                 min_index = j
-        nums[min_index], nums[i] = nums[i], nums[min_index]
+        nums[i], nums[min_index] = nums[min_index], nums[i]
+
     return nums
 
-
-c = [3, 4, 111, 6, 2, 10, 7, 5]
-print(selection_sort(c))
-# 原地排序
-# o(n**2)
-# 不稳定
+nums = [15, 5, 10, 2, 6, 7, 4, 3, 8]
+print(selection_sort(nums))
 
 
 def quick_sort(nums):
 
     def recur(start, end):
-        if start >= end:
+        if start > end:
             return
-        pivot = nums[end]
         i = start
         for j in range(start, end):
-            if nums[j] < pivot:
+            if nums[j] < nums[end]:
                 nums[i], nums[j] = nums[j], nums[i]
                 i += 1
         nums[i], nums[end] = nums[end], nums[i]
         recur(start, i-1)
         recur(i+1, end)
+    recur(0, len(nums)-1)
+
+    return nums
+
+nums = [15, 5, 10, 2, 6, 7, 4, 3, 8]
+print(quick_sort(nums))
+
+
+def merge_sort(nums):
+
+    def recur(start, end):
+        if start >= end:
+            return
+
+        mid = (start + end)//2
+        recur(start, mid)
+        recur(mid+1, end)
+
+        i = start
+        j = mid + 1
+        temp = list()
+        while i <= mid and j <= end:
+            if nums[i] < nums[j]:
+                temp.append(nums[i])
+                i += 1
+            else:
+                temp.append(nums[j])
+                j += 1
+
+        if i <= mid:
+            temp.extend(nums[i:mid+1])
+        if j <= end:
+            temp.extend(nums[j:end+1])
+        nums[start:end+1] = temp
 
     recur(0, len(nums)-1)
     return nums
 
 
-d = [1, 2, 11, 6, 3, 10, 7, 5, 11]
-print(quick_sort(d))
+nums = [15, 5, 10, 2, 6, 7, 4, 3, 8]
+print(merge_sort(nums))
 
 
-# merge sort
-def merge_sort(nums):
-
-    def recur(start, end):
-        merged = []
-        if end <= start:
-            return
-        mid = (start+end)//2
-        recur(start, mid)
-        recur(mid+1, end)
-
-        # merge
-        i = start
-        j = mid + 1
-        while i <= mid and j <= end:
-            if nums[i] < nums[j]:
-                merged.append(nums[i])
-                i += 1
-            else:
-                merged.append(nums[j])
-                j += 1
-
-        if i <= mid:
-            merged.extend(nums[i:mid+1])
-
-        if j <= end:
-            merged.extend(nums[j:end+1])
-        nums[start:end+1] = merged
-        return nums
-
-    new_nums = recur(0, len(nums)-1)
-    return new_nums
+def heapify(nums, start, end):
+    while True:
+        most_big_index = start
+        if start * 2 <= end and nums[most_big_index] < nums[start * 2]:
+            most_big_index = start * 2
+        if start * 2 + 1 <= end and nums[most_big_index] < nums[start *2 + 1]:
+            most_big_index = start * 2 + 1
+        if most_big_index == start:
+            break
+        nums[start], nums[most_big_index] = nums[most_big_index], nums[start]
+        start = most_big_index
 
 
-e = [1, 2, 9, 11, 6, 3, 10, 7, 5, 11, 16]
-print(merge_sort(e))
+def build_heap(nums):
+
+    nums.insert(0, None)
+
+    mid = (len(nums) -1)//2
+    for i in range(mid, 0, -1):
+        heapify(nums, i, len(nums)-1)
+
+    return nums
+
+def sort(nums):
+    heap = build_heap(nums)
+
+    for i in range(len(heap)-1, 1, -1):
+        heap[1], heap[i] = heap[i], heap[1]
+        heapify(heap, 1, i-1)
+    return heap
+
+nums = [5, 1, 8, 10, 20, 4, 2, 7, 15, 9]
+print(sort(nums))
 
 
-# 前k个元素
-# 使用快速排序降序：当i=2，k=3时，nums[i]就是第三个，否则如果k>nums[i]，则继续在右边找
-def find_k(nums, k):
+def bisection(nums, target):
 
     start = 0
     end = len(nums)-1
 
-    def recur(start, end, k):
+    def recur(start, end):
+        nonlocal target
         if start > end:
-            return
-
-        pivot = nums[end]
-        i = start
-        for j in range(i, end):
-            if nums[j] > pivot:
-                nums[i], nums[j] = nums[j], nums[i]
-                i += 1
-        nums[end], nums[i] = nums[i], nums[end]
-        if i == k-1:
-            return nums[i]
-        elif i > k-1:
-            return recur(start, i-1, k)
+            return -1
+        mid = (start + end)//2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] > target:
+            return recur(start, mid-1)
         else:
-            return recur(i+1, end, k)
+            return recur(mid+1, end)
 
-    result = recur(start, end, k)
-    return result
+    return recur(start, end)
+
+nums = [1, 2, 4, 6, 7, 10, 12, 14, 15, 16]
+print(bisection(nums, 15))
 
 
-ff = [14, 2, 10, 6, 9, 3, 1, 7]
-print(find_k(ff, 5))
+def zero_one_backpack(max_weight, nums):
+    states = [[False for _ in range(len(nums))] for _ in range(max_weight+1)]
+    # 第一个坐标是weight，第二个坐标是nums
+
+    # 第0个物品
+    states[0][0] = True
+    if nums[0] <= max_weight:
+        states[nums[0]][0] = True
+
+    for i, weight in enumerate(nums):
+        if i == 0: continue
+        # 不放第i个物品
+        for j in range(max_weight+1):
+            if states[j][i-1] == True:
+                states[j][i] = True
+
+        # 放第i个物品
+        for j in range(max_weight+1):
+            if j + weight <= max_weight and states[j][i-1] == True:
+                states[j+weight][i] = True
+
+    for k in range(max_weight, -1, -1):
+        if states[k][len(nums)-1]:
+            return k
+
+items = [10, 10, 12, 12, 19]
+max_weight = 28
+print(zero_one_backpack(max_weight, items))  # 24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
