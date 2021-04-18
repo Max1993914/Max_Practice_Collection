@@ -193,11 +193,72 @@ def zero_one_backpack(max_weight, nums):
         if states[k][len(nums)-1]:
             return k
 
+
 items = [10, 10, 12, 12, 19]
 max_weight = 28
 print(zero_one_backpack(max_weight, items))  # 24
 
 
+# 快速排序实现找到第k大的元素
+# 1. 倒序排序：如果mid=k-1，那么mid就是要找的第k大个元素
+u2 = [2, 5, 6, 1, 11, 9, 5, 7, 12, 22, 4, 3]
+def find_k(nums, k):
+
+    def recur(start, end, k):
+        if start > end:
+            return -1
+
+        index = start
+        for j in range(start, end):
+            if nums[j] > nums[end]:
+                nums[j], nums[index] = nums[index], nums[j]
+                index += 1
+        nums[index], nums[end] = nums[end], nums[index]
+
+        if k-1 == index:
+            return nums[index]
+        elif k-1 > index:
+            return recur(index+1, end, k)
+        else:
+            return recur(start, index-1, k)
+
+    return recur(0, len(nums)-1, k)
+
+
+print(find_k(u2, 2))  # 22
+
+def find_palindromic(s):
+
+    states = [[False for _ in range(len(s))] for _ in range(len(s))]
+
+    result = ""
+    for length in range(0, len(s)):
+        for i in range(0, len(s)):
+            j = i + length
+            if j >= len(s): break
+
+            if length == 0:
+                states[i][j] = True
+            elif length == 1:
+                if s[i] == s[j]:
+                    states[i][j] = True
+            else:
+                if s[i] == s[j] and states[i+1][j-1]:
+                    states[i][j] = True
+
+            if j - i + 1 > len(result) and states[i][j]:
+                result = s[i:j+1]
+    return result
+
+
+s = "abccbad"
+assert find_palindromic(s) == "abccba"
+
+s2 = "dfacca"
+assert find_palindromic(s2) == "acca"
+
+s3 = "bbbcc"
+assert find_palindromic((s3)) == "bbb"
 
 
 
